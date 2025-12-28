@@ -4,186 +4,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Create Profile</title>
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Poppins, sans-serif;
-    }
-
-    body {
-        background: linear-gradient(180deg, #0f0f17, #151526);
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        min-height: 100vh;
-    }
-
-    .app {
-        width: 100%;
-        max-width: 400px;
-        padding: 20px;
-    }
-
-    /* Card */
-    .profile-card {
-        background: rgba(26, 26, 34, .95);
-        border-radius: 22px;
-        padding: 28px 22px;
-        text-align: center;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, .45);
-        animation: fadeUp .6s ease;
-    }
-
-    /* Avatar */
-    .profile-card img {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        border: 4px solid transparent;
-        background:
-            linear-gradient(#1a1a1a, #1a1a1a) padding-box,
-            linear-gradient(45deg, #883aff, #5146ff) border-box;
-        margin-bottom: 14px;
-    }
-
-    /* Name */
-    #displayName {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 4px;
-    }
-
-    /* Subtitle */
-    .profile-card p {
-        font-size: 13px;
-        color: #aaa;
-        margin-bottom: 22px;
-    }
-
-    /* Inputs */
-    input {
-        width: 100%;
-        padding: 14px 16px;
-        border-radius: 14px;
-        border: 1px solid #222;
-        background: #0f0f17;
-        color: #fff;
-        font-size: 14px;
-        margin-bottom: 14px;
-        transition: .25s ease;
-    }
-
-    input::placeholder {
-        color: #777;
-    }
-
-    input:focus {
-        outline: none;
-        border-color: #883aff;
-        box-shadow: 0 0 0 2px rgba(136, 58, 255, .25);
-    }
-
-    /* Button */
-    button {
-        width: 100%;
-        padding: 15px;
-        border: none;
-        border-radius: 18px;
-        background: linear-gradient(135deg, #883aff, #5146ff);
-        color: #fff;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: .25s ease;
-        box-shadow: 0 10px 20px rgba(136, 58, 255, .35);
-    }
-
-    button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 28px rgba(136, 58, 255, .45);
-    }
-
-    button:active {
-        transform: scale(.97);
-    }
-
-    /* Animation */
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        body {
+            background: linear-gradient(180deg, #0f0f17, #151526);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff
         }
-    }
 
-    /* Mobile */
-    @media(max-width:360px) {
+        .app {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px
+        }
+
         .profile-card {
-            padding: 24px 18px;
+            background: rgba(26, 26, 34, .95);
+            border-radius: 22px;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .45);
+            animation: fadeUp .6s ease
+        }
+
+        .profile-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            background:
+                linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+                linear-gradient(45deg, #883aff, #5146ff) border-box;
+            margin-bottom: 14px
         }
 
         #displayName {
-            font-size: 18px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px
         }
-    }
-</style>
 
+        .profile-card p {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 20px
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid #222;
+            background: #0f0f17;
+            color: #fff;
+            margin-bottom: 14px
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #883aff;
+            box-shadow: 0 0 0 2px rgba(136, 58, 255, .25)
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #883aff, #5146ff);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(136, 58, 255, .35)
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #883aff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .4)
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div id="root"></div>
 
-    <div class="app">
-        <div class="profile-card">
-            <img src="https://i.pravatar.cc/150">
-            <h3 id="displayName">Guest</h3>
+    <script type="text/babel">
+        function ProfileApp() {
+            const [name, setName] = React.useState("");
+            const [phone, setPhone] = React.useState("");
+            const [toast, setToast] = React.useState("");
+            const isSaved = React.useRef(false);
 
-            <input id="nameInput" placeholder="Name">
-            <input id="phoneInput" placeholder="Phone">
+            React.useEffect(() => {
+                const savedName = localStorage.getItem("username");
+                const savedPhone = localStorage.getItem("phone");
 
-            <button onclick="saveProfile()">Save Profile</button>
-        </div>
-    </div>
+                if (savedName) {
+                    setName(savedName);
+                    isSaved.current = true;
+                }
+                if (savedPhone) {
+                    setPhone(savedPhone);
+                }
+            }, []);
 
-    <script>
-        const nameInput = document.getElementById("nameInput");
-        const phoneInput = document.getElementById("phoneInput");
-        const displayName = document.getElementById("displayName");
+            function saveProfile() {
+                if (!name || !phone) {
+                    showToast("Please enter name & phone ❌");
+                    return;
+                }
 
-        // LOAD DATA
-        window.onload = () => {
-            const name = localStorage.getItem("username");
-            const phone = localStorage.getItem("phone");
-
-            if (name) {
-                nameInput.value = name;
-                displayName.innerText = name;
+                localStorage.setItem("username", name);
+                localStorage.setItem("phone", phone);
+                isSaved.current = true;
+                showToast("Profile saved successfully ✅");
             }
 
-            if (phone) {
-                phoneInput.value = phone;
+            function showToast(msg) {
+                setToast(msg);
+                setTimeout(() => setToast(""), 2000);
             }
-        };
 
-        // SAVE DATA
-        function saveProfile() {
-            localStorage.setItem("username", nameInput.value);
-            localStorage.setItem("phone", phoneInput.value);
-            displayName.innerText = nameInput.value || "Guest";
-            alert("Profile Updated ✅");
+            return (
+                <div className="app">
+                    <div className="profile-card">
+                        <img src="https://i.pravatar.cc/150" />
+                        <h3 id="displayName">{name || "Guest"}</h3>
+                        <p>Home Services User</p>
+
+                        <input
+                            placeholder="Enter Name"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                        />
+
+                        <input
+                            placeholder="Enter Phone Number"
+                            value={phone}
+                            onChange={e => setPhone(e.target.value)}
+                        />
+
+                        <button onClick={saveProfile}>
+                            {isSaved.current ? "Update Profile" : "Create Profile"}
+                        </button>
+                    </div>
+
+                    {toast && <div className="toast">{toast}</div>}
+                </div>
+            );
         }
-    </script>
 
+        ReactDOM.createRoot(document.getElementById("root")).render(<ProfileApp />);
+    </script>
 </body>
 
 </html>
