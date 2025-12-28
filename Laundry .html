@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Services</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            background: #2a2a40;
+            padding: 8px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+        }
+
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            margin-top: 16px;
+            display: flex;
+            gap: 16px;
+            cursor: pointer;
+            border: 1px solid #2a2a36;
+            transition: .25s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: #2c2c3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #ffd454;
+        }
+
+        .price {
+            color: #ffd454;
+            font-weight: 600;
+        }
+
+        .no-results {
+            text-align: center;
+            margin-top: 40px;
+            opacity: .6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function LaundryPage() {
+
+            const [search, setSearch] = React.useState("");
+
+            const services = [
+                { name: "Laundry Pro", service: "Wash & Fold", price: "₹60 / Kg", icon: "fa-soap", page: "laundrybook.html" },
+                { name: "Laundry Pro", service: "Wash & Iron", price: "₹90 / Kg", icon: "fa-shirt", page: "laundrybook.html" },
+                { name: "Laundry Pro", service: "Dry Cleaning", price: "₹150", icon: "fa-droplet", page: "laundrybook.html" },
+                { name: "Laundry Pro", service: "Iron Only", price: "₹15 / Piece", icon: "fa-basket-shopping", page: "laundrybook.html" }
+            ];
+
+            function saveBooking(item) {
+                let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+                bookings.push({
+                    name: item.name,
+                    service: item.service,
+                    price: item.price,
+                    icon: item.icon,
+                    status: "Upcoming"
+                });
+                localStorage.setItem("bookings", JSON.stringify(bookings));
+                window.location.href = item.page;
+            }
+
+            const filtered = services.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <i className="fa fa-arrow-left" onClick={() => window.location.href = 'home.html'}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa fa-search"></i>
+                        <input
+                            placeholder="Search laundry services..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <p className="no-results">No services found</p>
+                    )}
+
+                    {filtered.map((item, i) => (
+                        <div className="card" key={i} onClick={() => saveBooking(item)}>
+                            <div className="avatar">
+                                <i className={`fa-solid ${item.icon}`}></i>
+                            </div>
+                            <div>
+                                <p style={{ opacity: .6, fontSize: 12 }}>{item.name}</p>
+                                <h3>{item.service}</h3>
+                                <p className="price">{item.price}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<LaundryPage />);
+    </script>
+
+</body>
+
+</html>

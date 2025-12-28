@@ -1,0 +1,340 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cleaning Services</title>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+   
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            padding: 20px;
+            color: white;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+        }
+
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            display: flex;
+            gap: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .card:hover {
+            background: #242435;
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: #2a2a40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #4da3ff;
+        }
+
+        .name {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function CleaningPage() {
+            const [search, setSearch] = React.useState("");
+
+            const services = [
+                { name: "Electrical Work", service: "Switch & Socket Repair", icon: "fa-plug", page: "repairing1.html" },
+                { name: "Electrical Work", service: "Fan Installation", icon: "fa-fan", page: "repairing2.html" },
+                { name: "Electrical Work", service: "Light Fixing", icon: "fa-lightbulb", page: "repairing3.html" },
+                { name: "Electrical Work", service: "Wiring Repair", icon: "fa-bolt", page: "repairing4.html" },
+                { name: "Electrical Work", service: "MCB & Fuse", icon: "fa-car-battery", page: "repairing5.html" },
+                { name: "Electrical Work", service: "Inverter Setup", icon: "fa-charging-station", page: "repairing6.html" },
+                { name: "Electrical Work", service: "Door Bell Fix", icon: "fa-bell", page: "repairing7.html" },
+                { name: "Electrical Work", service: "AC Power Issue", icon: "fa-snowflake", page: "repairing8.html" }
+            ];
+
+            const filtered = services.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <i className="fa-solid fa-arrow-left"
+                            onClick={() => window.location.href = 'home.html'}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            placeholder="Search electrical services..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.map((item, index) => (
+                        <div className="card" key={index}
+                            onClick={() => window.location.href = item.page}>
+
+                            <div className="icon-box">
+                                <i className={`fa-solid ${item.icon}`}></i>
+                            </div>
+
+                            <div>
+                                <p className="name">{item.name}</p>
+                                <h3>{item.service}</h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root"))
+            .render(<CleaningPage />);
+    </script>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electrical Services</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            padding: 20px;
+            color: white;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+        }
+
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            display: flex;
+            gap: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            background: #242435;
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: #2a2a40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #4da3ff;
+        }
+
+        .name {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .no-results {
+            text-align: center;
+            opacity: 0.6;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function CleaningPage() {
+            const [search, setSearch] = React.useState("");
+
+            const services = [
+                { name: "Electrical Work", service: "Switch & Socket Repair", icon: "fa-plug", page: "repairing1.html" },
+                { name: "Electrical Work", service: "Fan Installation", icon: "fa-fan", page: "repairing2.html" },
+                { name: "Electrical Work", service: "Light Fixing", icon: "fa-lightbulb", page: "repairing3.html" },
+                { name: "Electrical Work", service: "Wiring Repair", icon: "fa-bolt", page: "repairing4.html" },
+                { name: "Electrical Work", service: "MCB & Fuse Work", icon: "fa-car-battery", page: "repairing5.html" },
+                { name: "Electrical Work", service: "Inverter Installation", icon: "fa-charging-station", page: "repairing6.html" },
+                { name: "Electrical Work", service: "Switchboard Repair", icon: "fa-sliders", page: "repairing7.html" },
+                { name: "Electrical Work", service: "AC Power Issue", icon: "fa-snowflake", page: "repairing8.html" },
+                     { name: "Electrical Work", service: "All Electrical Work", icon: "fa-lightbulb", page: "repairing9.html" }
+            ];
+
+            function saveBooking(item) {
+                const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+                bookings.push({
+                    category: item.name,
+                    service: item.service,
+                    icon: item.icon,
+                    status: "Upcoming"
+                });
+                localStorage.setItem("bookings", JSON.stringify(bookings));
+                window.location.href = item.page;
+            }
+
+            const filtered = services.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            return (
+                <div className="app">
+
+                    <div className="header">
+                        <i className="fa-solid fa-arrow-left"
+                            onClick={() => window.location.href = "home.html"}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            placeholder="Search electrical services..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <p className="no-results">No services found</p>
+                    )}
+
+                    {filtered.map((item, index) => (
+                        <div className="card" key={index}
+                            onClick={() => saveBooking(item)}>
+
+                            <div className="icon-box">
+                                <i className={`fa-solid ${item.icon}`}></i>
+                            </div>
+
+                            <div>
+                                <p className="name">{item.name}</p>
+                                <h3>{item.service}</h3>
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root"))
+            .render(<CleaningPage />);
+    </script>
+</body>
+
+</html>

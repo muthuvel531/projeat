@@ -1,0 +1,433 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Test Services</title>
+
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            padding: 20px;
+            color: white;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+        }
+
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            display: flex;
+            gap: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            background: #242435;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .no-results {
+            text-align: center;
+            opacity: 0.6;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function LabTestPage() {
+            const [search, setSearch] = React.useState("");
+
+            const tests = [
+                {
+                    name: "Blood Test",
+                    service: "CBC - Complete Blood Count",
+                    image: "cbc.png",
+                    page: "cbc.html"
+                },
+                {
+                    name: "Hormone Test",
+                    service: "Thyroid Profile (T3 T4 TSH)",
+                    image: "thyroid.png",
+                    page: "thyroid.html"
+                },
+                {
+                    name: "Kidney Test",
+                    service: "KFT - Kidney Function Tests",
+                    image: "kft.png",
+                    page: "kft.html"
+                },
+                {
+                    name: "Liver Test",
+                    service: "LFT - Liver Function Tests",
+                    image: "lft.png",
+                    page: "lft.html"
+                },
+                {
+                    name: "Heart Health",
+                    service: "Lipid / Cholesterol Profile",
+                    image: "lipid.png",
+                    page: "lipid.html"
+                },
+                {
+                    name: "Urine Test",
+                    service: "U R/M - Complete Urine Examination",
+                    image: "urine.png",
+                    page: "urine.html"
+                },
+                {
+                    name: "Diabetes Test",
+                    service: "FBS - Fasting Blood Sugar",
+                    image: "fbs.png",
+                    page: "fbs.html"
+                },
+                {
+                    name: "Electrolytes",
+                    service: "Electrolytes Profile",
+                    image: "electrolytes.png",
+                    page: "electrolytes.html"
+                },
+                {
+                    name: "Bone & Joint",
+                    service: "Calcium and Uric Acid",
+                    image: "calcium.png",
+                    page: "calcium.html"
+                },
+                {
+                    name: "Inflammation",
+                    service: "ESR (Westergren)",
+                    image: "esr.png",
+                    page: "esr.html"
+                }
+            ];
+
+            const filtered = tests.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            function openTest(item) {
+                window.location.href = item.page;
+            }
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <i className="fa-solid fa-arrow-left"
+                            onClick={() => window.location.href = 'home.html'}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            placeholder="Search lab tests..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <p className="no-results">No tests found</p>
+                    )}
+
+                    {filtered.map((item, index) => (
+                        <div className="card" key={index} onClick={() => openTest(item)}>
+                            <img src={item.image} className="avatar" />
+                            <div>
+                                <p className="name">{item.name}</p>
+                                <h3>{item.service}</h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root"))
+            .render(<LabTestPage />);
+    </script>
+</body>
+
+</html>  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Test Services</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            padding: 20px;
+            color: white;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+        }
+
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            display: flex;
+            gap: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            align-items: center;
+        }
+
+        .card:hover {
+            background: #242435;
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: #2a2a40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #4da3ff;
+        }
+
+        .name {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .no-results {
+            text-align: center;
+            opacity: 0.6;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function LabTestPage() {
+            const [search, setSearch] = React.useState("");
+
+            const tests = [
+                {
+                    name: "Blood Test",
+                    service: "CBC - Complete Blood Count",
+                    icon: "fa-droplet",
+                    page: "homecare1.html"
+                },
+                {
+                    name: "Hormone Test",
+                    service: "Thyroid Profile (T3 T4 TSH)",
+                    icon: "fa-user-doctor",
+                    page: "homecare2.html"
+                },
+                {
+                    name: "Kidney Test",
+                    service: "KFT - Kidney Function Tests",
+                    icon: "fa-solid fa-stethoscope",
+                    page: "homecare3.html"
+                },
+                {
+                    name: "Liver Test",
+                    service: "LFT - Liver Function Tests",
+                    icon: "fa-notes-medical",
+                    page: "homecare4.html"
+                },
+                {
+                    name: "Heart Health",
+                    service: "Lipid / Cholesterol Profile",
+                    icon: "fa-heart-pulse",
+                    page: "homecare5.html"
+                },
+                {
+                    name: "Urine Test",
+                    service: "U R/M - Complete Urine Examination",
+                    icon: "fa-flask",
+                    page: "homecare6.html"
+                },
+                {
+                    name: "Diabetes Test",
+                    service: "FBS - Fasting Blood Sugar",
+                    icon: "fa-syringe",
+                    page: "homecare7.html"
+                },
+               
+                {
+                    name: "Bone & Joint",
+                    service: "Calcium and Uric Acid",
+                    icon: "fa-bone",
+                    page: "homecare8.html"
+                },
+                {
+                    name: "Inflammation",
+                    service: "ESR (Westergren)",
+                    icon: "fa-temperature-high",
+                    page: "homecare9.html"
+                },
+                {
+                    name: "Lap Test",
+                    service: "All Service in Lab",
+                    icon: "fa-vials",
+                    page: "homecare10.html"
+                }
+
+            ];
+
+            const filtered = tests.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <i className="fa-solid fa-arrow-left"
+                            onClick={() => window.location.href = 'home.html'}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            placeholder="Search lab tests..."
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <p className="no-results">No tests found</p>
+                    )}
+
+                    {filtered.map((item, index) => (
+                        <div className="card" key={index}
+                            onClick={() => window.location.href = item.page}>
+                            <div className="icon-box">
+                                <i className={`fa-solid ${item.icon}`}></i>
+                            </div>
+                            <div>
+                                <p className="name">{item.name}</p>
+                                <h3>{item.service}</h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root"))
+            .render(<LabTestPage />);
+    </script>
+</body>
+
+</html>

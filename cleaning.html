@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaning Services</title> <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #0f0f17;
+            padding: 20px;
+            color: white;
+        }
+
+        .app {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header i {
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s ease;
+            background: #2a2a40;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .header i:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .header i:active {
+            transform: scale(0.85);
+        }
+
+        /* SEARCH BOX */
+        .search-box {
+            background: #1c1c27;
+            padding: 14px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #2d2d38;
+            box-shadow: 0 0 10px rgba(150, 150, 200, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #f1f1f1;
+            font-size: 15px;
+        }
+
+        .search-box i {
+            color: #b0b0ba;
+            font-size: 17px;
+        }
+
+        /* SERVICE CARDS */
+        .card {
+            background: #1c1c27;
+            padding: 16px;
+            border-radius: 18px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #2a2a36;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(150, 150, 255, 0.22);
+        }
+
+        .card:active {
+            transform: scale(0.96);
+        }
+
+        /* ICON AVATAR */
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2c2c3a;
+            font-size: 30px;
+            color: #c08aff;
+        }
+
+        /* CARD TEXT */
+        .card-content .name {
+            font-size: 12px;
+            opacity: 0.65;
+        }
+
+        .card-content h3 {
+            font-size: 18px;
+            margin: 4px 0;
+            font-weight: 600;
+        }
+
+        .price {
+            color: #c08aff;
+            font-weight: 600;
+        }
+
+        /* EMPTY RESULT */
+        .no-results {
+            margin-top: 40px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 15px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 360px) {
+            .avatar {
+                width: 65px;
+                height: 65px;
+                font-size: 25px;
+            }
+
+            .card-content h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function CleaningPage() {
+            const [search, setSearch] = React.useState("");
+
+            const services = [
+                { name: "Chantal Shelburne", service: "Home Cleaning", price: "₹400", icon: "fa-broom", page: "cleaningbook.html" },
+                { name: "Lauralee Quintero", service: "Kitchen Cleaning", price: "₹400", icon: "fa-utensils", page: "cleaningbook2.html" },
+                { name: "Geoffrey Mott", service: "Toilet Cleaning", price: "₹400", icon: "fa-toilet", page: "cleaningbook3.html" },
+                { name: "Leatrice Handler", service: "Window Cleaning", price: "₹400", icon: "fa-window-restore", page: "cleaningbook4.html" },
+                { name: "Leatrice Handler", service: "All Work In Cleaning", price: "₹800", icon: "fa-house", page: "cleaningbook5.html" }
+            ];
+
+            function saveBooking(item) {
+                let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+                bookings.push({
+                    name: item.name,
+                    service: item.service,
+                    price: item.price,
+                    icon: item.icon,
+                    status: "Upcoming"
+                });
+                localStorage.setItem("bookings", JSON.stringify(bookings));
+                window.location.href = item.page;
+            }
+
+            const filtered = services.filter(item =>
+                item.service.toLowerCase().includes(search.toLowerCase())
+            );
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <i className="fa fa-arrow-left" onClick={() => window.location.href = 'home.html'}></i>
+                    </div>
+
+                    <div className="search-box">
+                        <i className="fa fa-search"></i>
+                        <input
+                            type="text"
+                            placeholder="Search cleaning services..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <p className="no-results">No services found</p>
+                    )}
+
+                    {filtered.map((item, index) => (
+                        <div className="card" key={index} onClick={() => saveBooking(item)}>
+                            <div className="avatar">
+                                <i className={`fa-solid ${item.icon}`}></i>
+                            </div>
+                            <div className="card-content">
+                                <p className="name">{item.name}</p>
+                                <h3>{item.service}</h3>
+                                <p className="price">{item.price}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<CleaningPage />);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f15;
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 360px;
+        }
+
+        .containe {
+            padding: 20px;
+            border-radius: 18px;
+            background: #14141d;
+            box-shadow: 0 0 12px rgba(194, 165, 255, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .booking-card {
+            background: #1c1c25;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+            width: 300px;
+            box-shadow: 0 0 5px rgba(90, 90, 100, 0.3);
+        }
+
+        .service-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            background: #1c1c25;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #c08aff;
+        }
+
+        .details h3 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .details p {
+            margin: 3px 0;
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .btn-msg,
+        .btn-cancel {
+            border: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            width: 80px;
+            text-align: center;
+        }
+
+        .btn-msg {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .empty {
+            text-align: center;
+            margin-top: 25px;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function MyBookings() {
+            const [bookings, setBookings] = React.useState([]);
+
+            // Default icons for services
+            const serviceIcons = {
+                Plumbing: "fa-wrench",
+                Electrical: "fa-bolt",
+                Cleaning: "fa-broom",
+                Carpentry: "fa-screwdriver-wrench",
+                Painting: "fa-paint-roller",
+            };
+
+            React.useEffect(() => {
+                let data = JSON.parse(localStorage.getItem("bookings")) || [];
+
+                // Assign default icon if not present
+                data = data.map(b => ({
+                    ...b,
+                    icon: b.icon || serviceIcons[b.service] || "fa-circle",
+                }));
+
+                localStorage.setItem("bookings", JSON.stringify(data));
+                setBookings(data.filter(b => b.status === "Upcoming"));
+            }, []);
+
+            function markCancelled(index) {
+                let updated = [...bookings];
+                updated[index].status = "Cancelled";
+
+                let allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+                allBookings = allBookings.map(b =>
+                    b.name === updated[index].name && b.service === updated[index].service
+                        ? { ...b, status: "Cancelled" }
+                        : b
+                );
+
+                localStorage.setItem("bookings", JSON.stringify(allBookings));
+                setBookings(updated.filter(b => b.status === "Upcoming"));
+            }
+
+            function sendWhatsApp(index) {
+                let b = bookings[index];
+                let message = `Hi, I want to talk about my booking:
+Service: ${b.service}
+Name: ${b.name}
+Price: ${b.price || "N/A"}`;
+
+                window.open("https://wa.me/916381893332?text=" + encodeURIComponent(message));
+            }
+
+            return (
+                <div className="container">
+                    <div className="containe">
+                        <div className="header">
+                            <h1>My Bookings</h1>
+                        </div>
+
+                        {bookings.length === 0 ? (
+                            <p className="empty">No upcoming bookings.</p>
+                        ) : (
+                            bookings.map((b, index) => (
+                                <div key={index} className="booking-card">
+                                    <div className="service-img">
+                                        <i className={`fa-solid ${b.icon}`}></i>
+                                    </div>
+                                    <div className="details">
+                                        <h3>{b.service}</h3>
+                                        <p>{b.name}</p>
+                                        <p>{b.price}</p>
+                                    </div>
+                                    <div className="actions">
+                                        <button className="btn-msg" onClick={() => sendWhatsApp(index)}>Message</button>
+                                        <button className="btn-cancel" onClick={() => markCancelled(index)}>Cancel</button>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            )
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<MyBookings />);
+    </script>
+</body>
+
+</html>

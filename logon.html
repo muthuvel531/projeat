@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        background: #0e0e10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    /* Main container */
+    .containe {
+        width: 100%;
+        max-width: 420px;
+        background: rgba(28, 28, 31, 0.85);
+        backdrop-filter: blur(10px);
+        padding: 45px 30px;
+        border-radius: 30px;
+        color: #fff;
+        animation: fadeSlideUp 0.8s ease forwards;
+        box-shadow: 0 0 25px rgba(168, 95, 255, 0.5);
+    }
+
+    /* Title */
+    h1 {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    /* Input Box */
+    .inputBox {
+        position: relative;
+        margin: 22px 0;
+    }
+
+    .inputBox input {
+        width: 100%;
+        padding: 16px 18px;
+        background: #1c1c1f;
+        border: 2px solid transparent;
+        border-radius: 14px;
+        color: #fff;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s ease;
+    }
+
+    .inputBox input:focus {
+        border-color: #b97aff;
+        box-shadow: 0 0 12px rgba(185, 122, 255, 0.8);
+    }
+
+    /* Floating Label */
+    .inputBox label {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9b9b9b;
+        font-size: 15px;
+        pointer-events: none;
+        transition: 0.3s ease;
+    }
+
+    .inputBox input:focus+label,
+    .inputBox input:not(:placeholder-shown)+label {
+        top: -9px;
+        left: 12px;
+        font-size: 12px;
+        padding: 0 6px;
+        background: #1c1c1f;
+        color: #d097ff;
+        border-radius: 6px;
+    }
+
+    /* Button */
+    .bt {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 40px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        margin-top: 25px;
+        background: linear-gradient(135deg, #9b4dff, #c86bff);
+        transition: 0.3s ease;
+        box-shadow: 0 0 12px rgba(185, 122, 255, 0.55);
+    }
+
+    .bt:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(200, 122, 255, 1);
+    }
+
+    .bt:active {
+        transform: scale(0.96);
+    }
+
+    /* Success Alert */
+    .successAlert {
+        width: 100%;
+        background: #00d26a;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+        .containe {
+            padding: 35px 22px;
+            border-radius: 25px;
+        }
+
+        h1 {
+            font-size: 26px;
+        }
+
+        .bt {
+            font-size: 16px;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+    <div id="root"></div>
+<script type="text/babel">
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqFIyVhPXx1r5W4fJM4nOii09AIxi0vKQ",
+        authDomain: "contactform-85948.firebaseapp.com",
+        databaseURL: "https://contactform-85948-default-rtdb.firebaseio.com",
+        projectId: "contactform-85948",
+        storageBucket: "contactform-85948.appspot.com",
+        messagingSenderId: "901007557564",
+        appId: "1:901007557564:web:25b92b3224f24d85be21b9"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const dbRef = firebase.database().ref("Users");
+
+    function App() {
+        const [loading, setLoading] = React.useState(false);
+        const [success, setSuccess] = React.useState(false);
+
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            if (loading) return;
+
+            const username = e.target.username.value.trim();
+            const phone = e.target.phone.value.trim();
+
+            setLoading(true);
+
+            try {
+                // Save locally
+                localStorage.setItem("username", username);
+                localStorage.setItem("phone", phone);
+
+                // Save to Firebase
+                await dbRef.push({
+                    username,
+                    phone,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                });
+
+                e.target.reset();
+                setSuccess(true);
+
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 2000);
+
+            } catch (err) {
+                alert("Something went wrong. Try again.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        return (
+            <div className="containe">
+                {success && (
+                    <div className="successAlert">
+                        ✔ Account created successfully!
+                    </div>
+                )}
+
+                <h1>Create your<br />Account</h1>
+
+                <form onSubmit={handleSubmit}>
+                    <div className="inputBox">
+                        <input name="username" type="text" placeholder=" " required />
+                        <label>Username</label>
+                    </div>
+
+                    <div className="inputBox">
+                        <input
+                            name="phone"
+                            type="tel"
+                            pattern="[0-9]{10}"
+                            placeholder=" "
+                            required
+                        />
+                        <label>Phone Number</label>
+                    </div>
+
+                    <button className="bt" type="submit" disabled={loading}>
+                        {loading ? "Saving..." : "Sign Up"}
+                    </button>
+                </form>
+            </div>
+        );
+    }
+
+    ReactDOM
+        .createRoot(document.getElementById("root"))
+        .render(<App />);
+
+</script>
+
+   
+</body>
+
+</html>
