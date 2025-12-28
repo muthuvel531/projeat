@@ -175,7 +175,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px;
-            margin-top: 10px;
+     margin-top: 10px;
         }
 
         .service {
@@ -188,7 +188,7 @@
             height: 56px;
             border-radius: 50%;
             display: flex;
-            display: fixed;
+        
             justify-content: center;
             align-items: center;
             margin: auto;
@@ -220,6 +220,7 @@
         }
 
         .blue {
+            
             background: #172a3a;
             color: #4fa7ff;
         }
@@ -233,7 +234,7 @@
         .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 50%;
+            /* left: 50%; */
             transform: translateX(-50%);
             width: 100%;
             max-width: 400px;
@@ -317,11 +318,6 @@
 } */
         @media (max-width: 768px) {
 
-            .app {
-                /* padding: 16px;
-                padding-bottom: 110px; */
-                /* space for bottom nav */
-            }
 
             /* SEARCH */
             .search {
@@ -378,9 +374,9 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 24px;
+                bottom: 0;
+             display: fixed;
                 margin-top: 38px;
-                 position: fixed;
-                   margin-bottom:20px ;
                 justify-content: center;
                 justify-items: center;
             }
@@ -548,7 +544,3 @@
 </body>
 
 </html>
-
-
-
-
